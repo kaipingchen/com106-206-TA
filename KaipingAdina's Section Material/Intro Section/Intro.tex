@@ -1,0 +1,315 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\definecolor{liteblue}{rgb}{0.63,0.71,0.8}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Introduction to R}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {January 13, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{13 Jan. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item Sections: 
+     \begin{itemize}
+       \item Thursday 4:30-5:20 pm Bldg 240 Rm 101
+       \item Friday 1:30-2:20 pm Bldg 120 Rm 314
+       \item Monday 2:30-3:20 pm Bldg 160 Rm 319
+     \end{itemize}
+   \item Pset 1: on Canvas, due Wed 1/20 before class (email before 3pm to stanfordcommresearchmethods@gmail.com)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Revised schedule}
+ \uncover<2->{
+ \includegraphics[width=.9\textwidth]{schedule2.png}}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Where we are?}
+ \uncover<2->{How does research, scientific research, theory, data, concepts, measurement fit together?}
+ \pause
+ \begin{itemize}[<+->]
+   \item Research: pushing the bounds of knowledge about different phenomenon
+   \item Theories: explanations about phenomena with properties we like
+   \item Concepts: what we call the phenomena being explained and doing the explaining
+   \item Data (analysis): needed to test theories, can be quantitative or qualitative
+   \item Quantitative data comes in the form of variables, which are measured concepts
+ \end{itemize}
+ \uncover<8->{To work with quantitative data, we need some sort of tool:}  \uncover<9->{$R$}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Today: R Intro Part I}
+ \begin{itemize}[<+->]
+   \item Install R
+   \item Install RStudio
+   \item Use R as a calculator
+   \item Save code (your work) in R Script
+   \item Create / manipulate \alert{objects} in R
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Install R}
+ \begin{itemize}
+   \item cran.r-project.org
+   \item google ``cran r"
+   \item The Comprehensive R Archive Network
+ \end{itemize}
+\end{frame}
+% demo
+
+\begin{frame}
+ \frametitle<+->{Install RStudio}
+ \begin{itemize}
+   \item www.rstudio.com
+   \item RStudio Desktop
+   \item Open Source Edition (Free)
+   \item Windows: RStudio 0.99.491 - Windows Vista/7/8/10
+   \item Mac: RStudio 0.99.491 - Mac OS X 10.6+ (64-bit)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Intro to R}
+ \begin{itemize}
+   \item use R as a calculator
+   \item save your work in a R Script
+   \item create and manipulate objects in R
+   \item load dataset into R
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle<+->{Open RStudio}
+ \begin{itemize}
+   \item Windows: Start Menu
+   \item Mac: Applications
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{RStudio}
+ \includegraphics[width=.8\textwidth]{rstudio1.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{R as calculator}
+ \begin{itemize}
+   \item Spacing doesn't matter
+   \item Order of operations applies
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{R Script}
+ \begin{itemize}
+   \item Do not save the R Console output
+   \item Save work as a R Script (File $\rightarrow$ New File $\rightarrow$ R Script)
+   \item \# tells R to ignore everything that comes after in that line
+   \item Put code and comments in R Script
+   \item Send comments from R Script to R Console:
+     \begin{itemize}
+       \item Click ``Run"
+       \item Keyboard shortcut: Ctrl+Enter (Windows)
+       \item Keyboard shortcut: Command+Enter (Mac)
+     \end{itemize}
+   \item Save the R Script
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Objects}
+ \begin{itemize}
+   \item Shortcuts to some pice of information or data
+   \item Save work as a R Script (File $\rightarrow$ New File $\rightarrow$ R Script)
+   \item Create objects with assignment operator: {\tt <-}
+   \item Use intuitive and informative names:
+     \begin{itemize}
+       \item Cannot begin with a number, but can contain numbers
+       \item Cannot contain spaces
+       \item Avoid special characters like \#, \%, \$
+       \item Names are case sensitive
+     \end{itemize}
+   \item Once you have created an object, see in Environment window on the top right (RStudio), see all objects with {\tt ls()}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Classes}
+ \begin{itemize}
+   \item R recognizes different types of objects by assigning each object to a class
+   \item Allows R to perform appropriate operations on an object depending on its class
+     \begin{itemize}
+       \item Number is stored as a numeric object
+       \item Character string is recognized as a character object
+     \end{itemize}
+   \item RStudio: Environment will show you the class of objects
+   \item Use {\tt class()} to see the class of objects
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Vectors}
+ \begin{itemize}
+   \item Simplest (not very efficient) way of entering data into R
+   \item One-dimensional array representing a collection of information stored in a specific order
+   \item Use {\tt c()} to enter a data separated by commas
+   \item Indexing: use square brackets {\tt []} to access specific elements of a vector
+   \item Arithmetic operations can be done using multiple vectors
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Functions}
+ \begin{itemize}
+   \item We have seen several functions: sqrt(), class(), c()
+   \item Format: {\tt funcname(input)}
+     \begin{itemize}
+       \item {\tt funcname}: function name
+       \item {\tt (input)}: input object (also called arguments)
+     \end{itemize}
+   \item Useful functions
+     \begin{itemize}
+       \item {\tt length()}: length of a vector or equivalently the number of its elements
+       \item {\tt min()}: min value
+       \item {\tt max()}: max value
+       \item {\tt range()}: range of data
+       \item {\tt mean()}: mean
+       \item {\tt sum()}: sum all values in vector
+       \item {\tt names()}: access and assign names to elements of a vector
+     \end{itemize}
+   \item To avoid confusion and problems stemming from the order, specify name of argument
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Your own functions}
+ \begin{itemize}
+   \item Use {\tt function()} function to create a new function
+   \item Spacing does not matter in R
+ \end{itemize}
+\end{frame}
+
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \includegraphics[width=.8\textwidth]{crying-baby.jpg}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Left pic}
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+
