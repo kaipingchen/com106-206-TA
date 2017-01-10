@@ -1,0 +1,474 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Assessing Hypotheses}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {February 10, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{10 Feb. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item Be sure to set aside time for psets, pset3 out
+   \item Midterm, Pset2: did well, Friday return
+   \item Getting help: SECTION, office hours (Tuesday 10:30am-12:30pm, Friday 1:00-3:00pm)
+   \item Mid Course Survey
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Where we are}
+ \begin{itemize}[<+->]
+   \item Up to now:
+     \begin{itemize}
+       \item What is research and its components
+       \item Basics of R
+       \item Causal inference
+       \item Describing data
+     \end{itemize}
+   \item This week:
+     \begin{itemize}
+       \item From what to \textit{why?}: assessing \alert{hypotheses}
+       \item We must compare: and match method to level of measurement, e.g., cross-tabs, mean comparisons
+       \item A picture is worth a thousand words: graphs and relationships
+       \item testing our claims:  statistical significance, null hypothesis, measures of association
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Why...}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{why.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item ...do some people vote Democrat, while others vote Republican?
+   \item ...do women earn less than men?
+   \item ...do wars happen?
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Notice}
+ \begin{minipage}{.38\linewidth}
+ \begin{itemize}
+   \item ...do some people vote Democrat, while others vote Republican?
+   \item ...do women earn less than men?
+   \item ...do wars happen?
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}
+   \item we make an explicit observation about a characteristic that varies: vote choice, salary, war...this will become our dependent variable (Y)
+   \item we need a causal explanation as an answer which must...
+      \begin{enumerate}
+        \item describe a connection between the dependent variable and an independent variable (X)
+        \item assert a direction for the difference
+        \item be testable!
+      \end{enumerate}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Causal Explanations: Gender and Earnings}
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item Why do women \alert{earn less} than men, even in the same jobs? (professor v professor, doctor v doctor etc.)
+   \item ...because of \alert{sexism}
+   \item too vague!
+   \item Think about the causal process
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{earn_money_hand.jpg}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Causal Explanation 1}
+ \includegraphics[width=\textwidth]{story1.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Causal Explanation 2}
+ \includegraphics[width=\textwidth]{story2.png}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Causal Explanations: Gender and Earnings}
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item Very different explanations, but both might be `sexism'
+   \item We don't know if the links in the chain (\alert{intervening variables}) are correct, but we could test them (surveys, experiments etc):
+     \begin{itemize}
+		\item do mothers do more child care than fathers?
+		\item does time off lead to a lack of promotion?
+		\item do people have notions of appropriate gender behavior? 
+		\item do women negotiate with less aggression?
+     \end{itemize}
+%   \item Being female is not the independent variable!
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \includegraphics[width=\textwidth]{earn_money_hand.jpg}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Causal Explanations: Gender and Earnings:\\Child-care responsibilities}
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item Want to know if child-care responsibilities are the cause of the difference.
+   \item We would: 
+     \begin{itemize}
+       \item<4-> separate units on the \alert{independent variable} \uncover<5->{[child-care responsibilities]...}
+       \item<6-> ...and compare values on the \alert{dependent variable} \uncover<7->{[salary]...}
+     \end{itemize}
+   \item If child-care responsibility are the cause of the difference, we should find a \alert{difference}
+   \item \blue{Now we have a hypothesis}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \includegraphics[width=\textwidth]{earn_money_hand.jpg}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Causal Explanations: Gender and Earnings:\\Child-care responsibility and earnings hypothesis}
+ A hypothesis is a \alert{testable statement about the empirical relationship between an independent variable and a dependent variable}
+ \bigskip
+ \uncover<2->{\begin{block}
+ In a comparison of \blue{[units of analysis]} those having \blue{[one value on the independent variable]} will be more likely to have \blue{[one value on the dependent variable]} than will those having \blue{[a different value on the independent variable]}.
+ \end{block}}
+ \bigskip
+ \uncover<3->{Get together in a group with people near you: write down the hypotheses for child-care responsibility and earnings (5min - then come up to board)}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Examples Hypotheses}
+ \uncover<2->{\begin{block}
+ In a comparison of \blue{[workers]} those having \blue{[fewer child-care responsibilities]} will be more likely to have \blue{[higher salaries]} than will those having \blue{[more child care responsibilities]}.
+ \end{block}}
+ \bigskip
+ \uncover<3->{\begin{block}
+ In a comparison of \blue{[nations]} those having \blue{[a less democratic polity]} will be more likely to have \blue{[wars]} than will those having \blue{[a more democratic polity]}.
+ \end{block}}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Hypotheses Recap}
+ A hypothesis is a \alert{testable statement about the empirical relationship between an independent variable and a dependent variable}
+ \begin{itemize}[<+->]
+   \item we state a \alert{relationship} between two variables: dependent and independent
+   \item we talk about \alert{comparing} this type of unit with that type
+   \item we are \alert{specific} about what we are comparing and on what grounds
+   \item we assert \alert{direction}: more of this leads to more of that 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{How to Make Comparisons?}
+ \begin{itemize}[<+->]
+   \item We choose different methods, depending on the \alert{type of measure} we have
+   \item Suppose the \alert{independent variable} is nominal or ordinal, then:
+     \begin{itemize}
+       \item \blue{Nominal} \alert{dependent variable}: cross-tabulation
+       \item \blue{Ordinal} \alert{dependent variable}: cross-tabulation
+       \item \blue{Interval} \alert{dependent variable}: comparison of means
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Our hypothesis}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{menshave.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item Men shave their face more often than women
+   \item Independent variable: \uncover<4->{Gender, } \uncover<5->{nominal}  
+   \item<6-> Dependent variable: \uncover<7->{Frequency of shaving face, } \uncover<8->{ordinal}  
+   \item Method of comparison: cross-tabulation (cross-tabs)
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Cross Tabulation}
+ \begin{minipage}{.48\linewidth}
+ Cross tabs show the distribution of cases \alert{across the values of a dependent variable} for cases that have \textit{different values} on the \alert{independent variable}.
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item The independent variable as the columns
+   \item The dependent variable as the rows
+   \item Calculate percentages of categories of the independent variable (we ask for ``column percentages" [columns sum to 100\%])
+   \item Compare percentages across columns for the same value of the dependent variable
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our hypothesis}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{menshave.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}
+   \item Men shave their face more often than women
+   \item Independent variable: Gender (nominal)
+   \item Dependent variable: Frequency of shaving face (ordinal)
+   \item Method of comparison: cross-tabulation (cross-tabs)
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Cross Tabulation: Shaving and Gender}
+ \includegraphics[width=.8\textwidth]{shavegender1.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Cross Tabulation: Shaving and Gender}
+ \includegraphics[width=.8\textwidth]{shavegender2.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Cross Tabulation in R}
+ \begin{itemize}[<+->]
+   \item Data: shave.csv
+   \item Cross tab function: table()
+   \item Recode ``shave" variable: ifelse()   
+   \item Column percentages: prop.table()
+ \end{itemize}
+ \bigskip
+ \uncover<6->{Men shave their face more often than women: 29 women never shave, but only 1 man never shaves (100\% of women never shave, but only 3.8\% of men never shave)}
+\end{frame}
+
+\begin{frame}
+ \frametitle{How to Make Comparisons?}
+ \begin{itemize}
+   \item We choose different methods, depending on the \alert{type of measure} we have
+   \item Suppose the \alert{independent variable} is nominal or ordinal, then:
+     \begin{itemize}
+       \item \blue{Nominal} \alert{dependent variable}: cross-tabulation
+       \item \blue{Ordinal} \alert{dependent variable}: cross-tabulation
+       \item \blue{Interval} \alert{dependent variable}: comparison of means
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Comparison of Means}
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item Use when we have an interval-level dependent variable
+   \item Examples:
+     \begin{itemize}
+       \item income of blacks vs. whites
+       \item height of boys vs. girls
+       \item feelings towards Trump for voters in different states 
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{measureheight.jpg}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Comparison of Means: Examples}
+ \includegraphics[width=.8\textwidth]{avginced.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Comparison of Means: Examples}
+ \includegraphics[width=.8\textwidth]{milkconsump.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing}
+ \begin{center}
+ \includegraphics[width=.8\textwidth]{graphcomp.png} 
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Positive Relationship}
+ \begin{center}
+ \includegraphics[width=.75\textwidth]{graphpos.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Negative Relationship}
+ \begin{center}
+ \includegraphics[width=.75\textwidth]{graphneg.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Linear Relationships}
+ \begin{center}
+ \includegraphics[width=.85\textwidth]{graphlinear.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Non-linear Relationships}
+ \begin{center}
+ \includegraphics[width=.8\textwidth]{graphnonlinear.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Non-linear Relationships}
+ \begin{center}
+ \includegraphics[width=.8\textwidth]{graphcurvelinear.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Non-linear Relationships}
+ \begin{center}
+ \includegraphics[width=.7\textwidth]{graphinvertu.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: Non-linear Relationships}
+ \begin{center}
+ \includegraphics[width=.85\textwidth]{graphnonlinear2.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons by Graphing: R}
+ plot()
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Summing Up}
+ \begin{itemize}[<+->]
+       \item Answering questions with \alert{hypotheses}
+       \item Making comparison to answer questions, and matching method to type of variable, e.g., cross-tabs, mean comparisons
+       \item Making comparisons by graphing
+       \item Next time: testing our claims
+ \end{itemize}
+\end{frame}
+
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \includegraphics[width=.8\textwidth]{crying-baby.jpg}
+%\end{frame}
+%
+
+
+%
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+

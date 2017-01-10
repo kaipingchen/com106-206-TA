@@ -1,0 +1,327 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\definecolor{liteblue}{rgb}{0.63,0.71,0.8}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Introduction to R, Day 2}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {January 15, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{15 Jan. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item Pset 1: provide rationale for answers
+   \item Friday section room (see syllabus)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Overview}
+ \begin{itemize}[<+->]
+   \item Last time
+     \begin{itemize}
+       \item Installed R and RStudio
+       \item Started using RStudio
+       \item Learned how to create / manipulate objects
+     \end{itemize}
+   \item Today
+     \begin{itemize}
+       \item Review: creating / manipulating objects
+       \item Some useful functions
+       \item Load datasets into R
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Functions}
+ \begin{itemize}
+   \item We have seen several functions: sqrt(), class(), c()
+   \item Format: {\tt funcname(input)}
+     \begin{itemize}
+       \item {\tt funcname}: function name
+       \item {\tt (input)}: input object (also called arguments)
+     \end{itemize}
+   \item Useful functions
+     \begin{itemize}
+       \item {\tt length()}: length of a vector or equivalently the number of its elements
+       \item {\tt min()}: min value
+       \item {\tt max()}: max value
+       \item {\tt range()}: range of data
+       \item {\tt mean()}: mean
+       \item {\tt sum()}: sum all values in vector
+       \item {\tt names()}: access and assign names to elements of a vector
+     \end{itemize}
+   \item To avoid confusion and problems stemming from the order, specify name of argument
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle<+->{Data Files}
+ \begin{itemize}
+   \item Vectors: manually entered data into R (not efficient)
+   \item Most times: load data from an external file
+   \item We will deal with two types of data
+     \begin{itemize}
+       \item csv: comma separated values
+       \item RData: collection of R objects including datasets
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Local Files: Change Working Directory}
+ \begin{itemize}
+   \item Open RStudio
+   \item Create a New R Script
+   \item To load a file, you must know
+     \begin{itemize}
+       \item where the file is on my computer (what is the file path)
+       \item copy the file path
+       \item change my working directory in RStudio to the directory where the file is
+     \end{itemize}
+   \item Check current working directory in RStudio: {\tt getwd()}
+   \item Change current working directory in RStudio: {\footnotesize{\tt setwd("username/folder/folderwithdata/")}}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Local Files}
+ \begin{itemize}
+   \item csv
+     \begin{itemize}
+	   \item use {\tt read.csv()}
+	   \item use assignment operator to save as an object
+	   \item name of object is up to you
+	   \item \alert{never change the name of the data files you use in this class}
+     \end{itemize}
+   \item RData
+     \begin{itemize}
+	   \item use {\tt load()}
+	   \item do not use assignment operator, R objects stored in the RData file already have object names
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Learn about loaded data}
+ \begin{itemize}
+   \item use {\tt class()}
+   \item often are {\tt data.frame} objects: collection of vectors, but we can think of it like a spreadsheet
+   \item useful functions
+     \begin{itemize}
+		\item {\tt names()}: vector of variable names
+		\item {\tt nrow()}: number of rows
+		\item {\tt ncol()}: number of columns
+		\item {\tt dim()}: combines ncol and nrow
+		\item {\tt summary()}: for each variable, the min, 25th percentile, median, 75th percentile, max
+		\item {\tt View()}: same as clicking in Environment, shows data in table format
+     \end{itemize}
+   \item to access an individual variables of data.frame (as a vector)
+     \begin{itemize}
+		\item {\tt \$} operator
+		\item indexing {\tt []}
+     \end{itemize}
+   \item missing values: {\tt NA}, some function may need {\tt na.rm$=$TRUE} to work
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Saving Objects}
+ \begin{itemize}
+   \item We can write objects are .csv or RData
+     \begin{itemize}
+		\item For RData: {\tt save(UNpop, file = "myUNpop.RData")}
+		\item For csv: {\tt write.csv(UNpop, file = "myUNpop.csv")}
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Packages}
+ \begin{itemize}
+   \item R is open source
+   \item Large community of people who contribute various functionalities as \alert{R packages}
+   \item Example: {\tt foreign} package to read in data from programs like STATA and SPSS
+     \begin{itemize}
+		\item The first time you use a package, you have to install it:\\
+		{\tt install.packages(``foreign")}
+	    \item \alert{Every} time you use the package (with a new session of RStudio), you have to load it:\\
+	    {\tt library(``foreign")}
+	    \item After package is loaded, you can use the functions to load ``foreign" data:\\
+	    {\tt read.dta("UNpop.dta")}
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Logical Operators}
+% \begin{itemize}
+%   \item TBD
+%     \begin{itemize}
+%		\item TBD
+%     \end{itemize}
+% \end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Relationship Operators}
+% \begin{itemize}
+%   \item TBD
+%     \begin{itemize}
+%		\item TBD
+%     \end{itemize}
+% \end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Subsetting}
+% \begin{itemize}
+%   \item TBD
+%     \begin{itemize}
+%		\item TBD
+%     \end{itemize}
+% \end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Simple conditional statements}
+% \begin{itemize}
+%   \item TBD
+%     \begin{itemize}
+%		\item TBD
+%     \end{itemize}
+% \end{itemize}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Factor variables}
+% \begin{itemize}
+%   \item TBD
+%     \begin{itemize}
+%		\item TBD
+%     \end{itemize}
+% \end{itemize}
+%\end{frame}
+
+
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \includegraphics[width=.8\textwidth]{crying-baby.jpg}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Left pic}
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+

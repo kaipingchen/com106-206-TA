@@ -1,0 +1,401 @@
+\documentclass[handout]{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\green}{\textcolor{green}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Regression}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {February 19, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{19 Feb. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item Monday Feb 29 Section and Tuesday Mar 1 Office Hours
+   \item Data for class next Wed
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Where we are}
+ \begin{itemize}[<+->]
+   \item Previously
+     \begin{itemize}
+       \item Describing data
+       \item Assessing hypotheses by making comparisons
+       \item Making comparisons with interval variables (correlation)
+     \end{itemize}
+   \item Today
+     \begin{itemize}
+       \item Thinking systematically about how X relates to Y (linear regression)
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{16 NBA Players in 2007-008}
+ \begin{center}
+ \includegraphics[width=.8\textwidth]{blocks1.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{We Might Ask...}
+ \begin{center}
+ \includegraphics[width=.95\textwidth]{blocks2.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{We Can Make a Scatterplot}
+ \begin{center}
+ \includegraphics[width=.75\textwidth]{blocks3.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{We Can Calculate Correlation}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{blocks3.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item {\tt cor(height, blocks)} = 0.88
+   \item Strong, positive (linear) association 
+   \item Being tall is associated with blocking more
+   \item Being short is associated with blocking less
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{We Want to Know More!}
+ We might want to ask:
+ \begin{enumerate}[<+->]
+   \item On average, what is the \blue{effect} of a one inch increase in a player's height on his blocks per game?
+   \item If we have a NBA player and know his height, what is his \blue{predicted} blocks per game?
+ \end{enumerate}
+ \bigskip
+ \begin{center}
+ \uncover<5->{\textbf{Correlation \alert{cannot} tell us}}
+ \bigskip
+ \uncover<6->{\textbf{Regression \alert{can} tell us}}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Linear Regression}
+ \begin{itemize}[<+->]
+   \item We will make our \blue{Y} depend on our \green{X} in the following way:
+   \uncover<2->{\includegraphics[width=.9\textwidth]{linear1.png}}
+   \item This is called a ``linear" function because it produces a straight line graph between \green{X} and \blue{Y}
+   \item For any value of \green{X} (and a) we will get an expected value for \blue{Y}
+   \item For any value of \green{height} (and a) we will get an expected value for \blue{blocks}
+   \item Finding the values for b and a amounts to drawing a `best fit' line for the scatter plot
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Linear Regression: Back to High School}
+ \begin{itemize}[<+->]
+   \item Suppose $x_1=1$, $y_1=6$ and $x_2=2$, $y_2=8$
+   \item What is the relationship between them?
+   \uncover<4->{\includegraphics[width=.9\textwidth]{linear2.png}} 
+   \pause
+   \item \green{y-intercept} = 4, \alert{slope} = 2
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Linear Regression: Back to High School}
+ \begin{itemize}[<+->]
+   \item Suppose $x_1=1$, $y_1=6$ and $x_2=2$, $y_2=8$
+   \item \green{y-intercept} = 4, \alert{slope} = 2
+   \bigskip
+   \uncover<3->{\includegraphics[width=.9\textwidth]{linear3.png}} 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Linear Regression: Notation}
+   \uncover<2->{\includegraphics[width=\textwidth]{linear4.png}} 
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Back to our NBA Example}
+ We want to know:
+ \begin{enumerate}
+   \item On average, what is the \blue{effect} of a one inch increase in a player's height on his blocks per game?
+   \item If we have a NBA player and know his height, what is his \blue{predicted} blocks per game?
+ \end{enumerate}
+ \uncover<2->{Regression can tell us:} \pause
+ \begin{itemize}
+   \item the \alert{`best fit'} (straight) line for the data
+   \item the \alert{equation} for that line
+   \item a predicted Y for any value of X (a predicted blocks per game for any height)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Back to our NBA Example}
+ \begin{center}
+ \includegraphics[width=.8\textwidth]{nbaregression.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Back to our NBA Example}
+ \begin{itemize}[<+->]
+   \item $\hat{\alpha} = -7.734 $ (the \alert{constant})...
+     \begin{itemize}
+       \item is the intercept on the y-axis
+       \item tells us what value Y takes when X (height) is zero
+     \end{itemize}
+   \item $\hat{\beta} = 0.108$ (the \alert{coefficient})...
+     \begin{itemize}
+       \item average change in Y (blocks) for a one unit increase in X (height)
+       \item coefficient are always in  terms  of Y's units!
+     \end{itemize}
+   \item Interpretation of $\hat{\beta}$
+      \begin{itemize}
+        \item On average...\blue{Y} changes by [\alert{$\hat{\beta}$}][\blue{Y's units}] for a 1 [\green{X's unit}] increase in \green{X}
+        \item On average...\blue{a player's blocks per game } changes by [\alert{0.108}][\blue{blocks}] for a 1 [\green{inch}] increase in \green{height}
+      \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Predictions}
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item To predict \blue{Y} for any \green{X}, just plug the \green{X} into the equation and calculate \blue{$\hat{y}$}
+   \item $\hat{y} = \hat{\alpha} +  \hat{\beta} x$
+   \item \blue{$\hat{y}$} is the \alert{predicted value}
+   \item NBA example:
+     \begin{itemize}
+       \item $\hat{y} = -7.734 + 0.108 x$
+       \item Tony Parker is 6'2" (74in) (not in sample)
+       \item $\hat{y} = -7.734 + 0.108 (74) = 0.258$
+       \item Parker's \alert{actual} average was 0.1 blocks
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+  \uncover<5->{\includegraphics[width=\textwidth]{tonyparker.jpg}}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Actual ($y$) vs. Predicted ($\hat{y}$)}
+ \begin{minipage}{.52\linewidth}
+ \uncover<4->{\includegraphics[width=\textwidth]{y_yhat.png}}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item $y$ is the actual value of y in the sample
+   \item $\hat{y}$ is what we predict based on the regression line
+   \item Example: Dwight Howard
+     \begin{itemize}
+       \item Howard has 2.2 \alert{actual} blocks per game
+       \item Howard is \alert{predicted} to have 1.23 from our regression
+       \item Difference between actual value and predicted value is the \alert{residual}
+       \item Residual for Howard is 2.2 – 1.23 = 0.97
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Calculating the Line}
+ \begin{minipage}{.28\linewidth}
+ \uncover<3->{\includegraphics[width=.5\textwidth]{nba_residuals.png}}
+ \end{minipage}\hfill
+ \begin{minipage}{.7\linewidth}
+ \begin{itemize}[<+->]
+   \item Residual = actual - predicted = $y -\hat{y}$
+   \item We have a residual for each observation
+   \item We draw the line so it minimizes the residuals
+   \item Specifically, minimize the sum of squared residuals
+   \item \blue{OLS (ordinary least squares) estimation}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Linear Regression}
+ \begin{itemize}[<+->]
+   \item For a given value of X (e.g., height of 67in, 69in)...Y (blocks) can take different values
+   \item We will focus on the \alert{mean} value Y takes for a given value of X
+   $$\mbox{average}(Y|X) = \alpha + \beta X$$
+   \item The slope $\beta$ is always the same...this is a \alert{linear} regression model
+   \uncover<5->{\includegraphics[width=.7\textwidth]{linearmodel.png}}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Ordinary Least Squares}
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item In theory, we could use any equation to link y to x: $$\mbox{average}(Y|X) = f(X)$$
+   \item Ordinary Least Squares (estimation) is the technique we use to draw the line 
+through the points
+   \item OLS is so common it's often synonymous with linear regression
+   \item But, there are other ways to draw a straight line through points (least absolute values)
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \uncover<5->{\includegraphics[width=\textwidth]{olslav.png}}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ordinary Least Squares}
+ \begin{center}
+ \includegraphics[width=.7\textwidth]{ols.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Linear Regression}
+ \begin{itemize}[<+->]
+   \item<1-> Units matter (correlation, unit-less) \pause
+     \begin{itemize}
+       \item The effect of average temperature (X) on ice cream sales (Y)
+       \item $\hat{\beta}$ will change if we measure temp in Celcius vs in Fahrenheit (and sales in dollars vs in euros)
+       \item \blue{Remember}: $\hat{\alpha}$ and $\hat{\beta}$ are in y's units...not in x's units
+     \end{itemize}
+   \item<2-> Asymmetric (correlation, symmetric)
+     \begin{itemize}
+       \item Regression of Y on X is...not the same as regression of X on Y
+     \end{itemize}   
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Ordinary Least Squares Linear Regression in R}
+ {\tt lm()}
+\end{frame}
+% Do it in R
+
+
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \begin{center}
+% \includegraphics[width=.7\textwidth]{graphinvertu.png}
+% \end{center}
+%\end{frame}
+%
+
+%\begin{frame}
+% \frametitle<+->{Left pic}
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying.png}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying.png}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+

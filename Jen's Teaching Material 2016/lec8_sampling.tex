@@ -1,0 +1,535 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Sampling}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {January 29, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{29 Jan. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item No laptop in lecture UNLESS I'm not working in R
+   \item Midterm Feb. 5 (traveling - Megan by Feb 3 before class)
+   \item Midterm content: today's lecture (Monday Feb. 1 section)
+   \item Midterm review Feb 4, Feb 5 section (no section Feb 8)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Overview}
+ \begin{itemize}[<+->]
+   \item Up to now
+     \begin{itemize}
+       \item What is scientific research: theories, concepts, measurements
+       \item Types of question we want to answer: causation
+       \item Summarizing data: descriptive statistics
+       \item Basics of R: tool for working with quantitative data
+     \end{itemize}
+   \item Today
+     \begin{itemize}
+       \item Getting representative data: random sampling and pitfalls
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Terminology}
+ \begin{minipage}{.48\linewidth}
+ \only<1->{\includegraphics[width=\textwidth]{terminology.png}}%
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item Population
+   \item Sample
+   \item Random Sampling
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Population}
+ Population: the \alert{universe of cases} we want to describe
+ \begin{itemize}[<+->]
+   \item ``What is the average income of adults in the US?"
+      \begin{itemize}
+        \item \blue{Population}: \underline{every} person in the US, over 18 years of age
+      \end{itemize}
+   \item ``Does poor diet increase the risk of prostate cancer?"
+      \begin{itemize}
+        \item \blue{Population}: \underline{all} males (of all ages, in the world)
+      \end{itemize}
+   \item ``What is the average price increase for goods and services?"
+      \begin{itemize}
+        \item \blue{Population}: \underline{every} good and service sold, \underline{every} store
+      \end{itemize}
+   \item ``How will American vote in the 2016 presidential election?
+      \begin{itemize}
+        \item \blue{Population}: \underline{all} US citizens...who intend to vote? who are eligible to vote?
+      \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Population}
+ Population: the \alert{universe of cases} we want to describe
+ Population parameter: the characteristic of the population we care about
+ \begin{itemize}[<+->]
+   \item ``What is the average income of adults in the US?"
+      \begin{itemize}
+        \item \blue{Population parameter}: average income
+      \end{itemize}
+   \item ``Does poor diet increase the risk of prostate cancer?"
+      \begin{itemize}
+        \item \blue{Population parameter}: risk
+      \end{itemize}
+   \item ``What is the average price increase for goods and services?"
+      \begin{itemize}
+        \item \blue{Population parameter}: average price
+      \end{itemize}
+   \item ``How will American vote in the 2016 presidential election?
+      \begin{itemize}
+        \item \blue{Population parameter}: vote intention
+      \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Population}
+ \begin{minipage}{.58\linewidth}
+ Population: the \alert{universe of cases} we want to describe
+ Population parameter: the characteristic of the population we care about
+ \begin{itemize}[<+->]
+   \item Census: when we have every single observation from the population
+   \item Rare, usually:
+      \begin{itemize}
+        \item Too expensive (2010 census cost \$13 billion)
+        \item Too time consuming
+      \end{itemize}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \includegraphics[width=\textwidth]{population.png}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Sample}
+ Population: the \alert{universe of cases} we want to describe
+ \begin{itemize}[<+->]
+   \item Take a \alert{sample} of n cases from the population
+      \begin{itemize}
+        \item A sample of US adults
+        \item A sample of men
+        \item A sample of stores selling goods and services
+        \item A sample of eligible voters
+      \end{itemize}   
+   \item Calculate a \alert{sample statistic}
+      \begin{itemize}
+        \item Average income of a sample of US adults
+        \item Average risk of prostate cancer of the sample of men
+        \item Average price of goods and services in the sample of stores
+        \item Vote intention of sample of eligible voters
+      \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Sample vs. Population}
+ \begin{minipage}{.35\linewidth}
+ \begin{itemize}[<+->]
+   \item Population: the universe of cases we want to describe
+   \item Population parameter: the characteristic of the population we care about
+   \item Sample: n cases from the population
+   \item Sample statistic: what we use to estimate the population parameter
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.64\linewidth}
+ \begin{itemize}[<+->]
+   \item Examples:
+      \begin{itemize}
+        \item We don't care about how individuals in Gallup poll (sample) are going to vote: do care about what that tells us about US voters in general (population)
+        \item Don't care about whether price of a pizza from Avanti (sample) has increased: do care about what this tells us about inflation in general (population
+      \end{itemize}
+    \item Saying something about the population from the sample is called \alert{statistical inference}
+    \item \blue{Recall}: Inference is a part of what makes research scientific: infer something about the world beyond what we observe
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Sample vs. Population}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{samplepop.png}
+ \pause
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item Unless we have a census, we can never know \alert{for sure} what the population parameter is...
+   \item ...but we can \alert{estimate} it (with varying degrees of uncertainty)
+   \item \blue{Recall} Capturing uncertainty is a part of what makes research scientific
+   \item Afghanistan data: n = 2754 respondents was used to infer experiences of N = 15 million civilians
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{How uncertain?}
+ \begin{itemize}[<+->]
+   \item How uncertain (or accurate) will our estimate of the population parameter be?
+   \item Depends on:
+     \begin{enumerate}     
+      \item How sample was \alert{chosen}: must be \alert{random} sampling
+      \item How \alert{large} sample is: \alert{bigger} sample size is better
+      \item Characteristics of population parameter itself: how much \alert{variation} the population shows 
+     \end{enumerate}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Random Sampling}
+ \begin{itemize}[<+->]
+   \item \blue{Simple random sampling}: every member of the population must have an \alert{equal chance} of being chosen: \blue{random selection}  (there are other methods of random sampling)
+   \item If there are N units in the population, chance of any particular unit being in the sample must be is:
+         $$ \frac{n}{N}$$
+     \begin{itemize}     
+      \item N = 230 million possible voters, sample of n = 1000: everyone must have $\frac{1,000}{230,000,000}$ chance of being picked for the sample
+      \item N = 6999 undergrads at Stanford, sample of n = 100 for a undergrad survey: everyone must have $\frac{100}{6999}$ chance of being picked for the survey sample
+     \end{itemize}
+   \item Produces sample that is \alert{representative} of the population: if we repeat the same random sampling procedure many times, features of each sample are not identical to those of population, but on average they are identical
+   \item Need \alert{sampling frame}: list of individuals in the population to sample from
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Random Sampling}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{biasedsurvey.jpg}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item Random sampling eliminates \alert{biased differences} between population and sample
+   \item Get it wrong
+      \begin{itemize}
+        \item Allow people to self-select into answering
+        \item Only include certain types of people in sample
+      \end{itemize}
+   \item Answers are meaningless!
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Random Sampling Fail}
+ \begin{minipage}{.38\linewidth}
+ \includegraphics[width=.8\textwidth]{literarydigestlandon.jpg}
+ \end{minipage}\hfill
+ \begin{minipage}{.58\linewidth}
+ Example of getting it wrong:
+ \begin{itemize}[<+->]
+   \item Literary Digest (LD) poll 1936 to predict Roosevelt vs. Landon election
+   \item LD gets names and address from phone records, automobile clubs, own subscribers
+   \item LD send out 10 million sample ballots, get 2.4 million back (HUGE)
+   \item Prediction:\\ \blue{Roosevelt} 43\%, \alert{Landon} 57\%
+   \item Actual:\\  \blue{Roosevelt} 60.8\%, \alert{Landon} 36.5\%
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Random Sampling Fail}
+ \begin{minipage}{.3\linewidth}
+ What went wrong?\\
+ \includegraphics[width=.8\textwidth]{literarydigestlandon.jpg}
+ \end{minipage}\hfill
+ \begin{minipage}{.7\linewidth}
+ \begin{itemize}[<+->]
+   \item Were people in the sample reflective of population of voters?
+   \item Wrong \alert{sampling frame}: wrong method for defining population LD wanted to study
+   \item Assumed it was everyone in phone directory + those in auto clubs + subscribers
+   \item If you were poor, rural, semi-literate, what is your probability of being in that sample?
+      \begin{itemize}
+        \item Was the probability $\frac{n}{N}$ where n = 2.4 million, N = 46 million voters?
+        \item NO! It was 0
+      \end{itemize}
+   \item If you were a rich, city-dwelling lawyer, what is your probability of being in thatsample?
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Random Sampling Fail}
+ Another example: Republican Primary 2007
+ \includegraphics[width=.8\textwidth]{repprimary2007.jpg}
+ \begin{itemize}
+   \item CNBC post-debate online poll: ``who won the debate?"
+   \item 7,000 respondents: Ron Paul won with 75\% of the vote
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Random Sampling: Afghanistan Data}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=.8\textwidth]{afghan.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}
+   \item Altitude and population in surveyed and non-surveyed villages
+   \item Some outliers
+   \item Distribution of these two variables is largely similar between the sampled and non-sampled villages
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+% GO TO R
+
+\begin{frame}
+ \frametitle{Sampling Bias}
+ \begin{itemize}
+   \item \blue{Sampling bias}: wrong sampling frame (some types of people, car owners, rich, more likely to be included in survey than others)
+     \begin{itemize}
+       \item How successful is Alcoholics Anonymous? (But who selects into AA? what are their motivations?)
+       \item If certain `types' of units are systematically more or less likely to appear in your sample, you probably have a \alert{selection effect}
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Uncertainty}
+ \begin{minipage}{.4\linewidth}
+ \begin{itemize}[<+->]
+   \item Unless we have a census, we can never know \alert{for sure} what the population parameter is...
+   \item ...but we can \alert{estimate} it (with varying degrees of uncertainty)
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.58\linewidth}
+ \uncover<4->{Depends on:}
+     \begin{enumerate}[<+->]     
+      \item How sample was chosen: random sampling to eliminate bias btw sample and population \checkmark
+      \item How \alert{large} sample is: \alert{bigger} sample size is better
+      \item Characteristics of population parameter itself: how much \alert{variation} the population shows 
+     \end{enumerate}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Random Sampling Error}
+ \begin{minipage}{.35\linewidth}
+ \begin{itemize}[<+->]
+   \item We can avoid bias, but we get some \alert{random sampling error}
+     \begin{itemize}
+       \item How sample statistic \alert{differs by chance} from population parameter
+       \item We know exactly how this error is affecting our estimate (with bias, we never know for sure)
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.65\linewidth}
+ \uncover<5->{Without sampling bias:}\\
+ \uncover<6->{Population parameter = sample statistic  + random sampling error}\\
+   \begin{itemize}[<+->]     
+      \item Random sampling error for average height of students on campus?
+        \begin{itemize}
+          \item Get random sample of 100 (no bias!)
+          \item Measure heights
+          \item By chance 38\% of our sample is less than 5'9", but 36\% of true population is less than 5'9"
+        \end{itemize}
+   \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Random Sampling Error: Primaries}
+ \begin{minipage}{.58\linewidth}
+ \includegraphics[width=\textwidth]{reppolls.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \begin{itemize}[<+->]
+   \item Random sampling error can lead to an overestimate or underestimate relative to true parameter value
+   \item Trump 26.8\% is somewhere between 15\% and 40\%
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Random Sampling Error: Population Variation, Sample Size}
+ \begin{minipage}{.38\linewidth}
+ \begin{itemize}
+   \item<2-> More variation in population  $\rightarrow$ more random sampling error
+   \item<5-> Bigger sample $\rightarrow$ less random sampling error
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.58\linewidth}
+	\uncover<3->{
+	\begin{center}
+	\includegraphics[width=\textwidth]{pop1v2.png}	
+	\end{center}}
+	\only<4>{Which population is likely to be better represented with a sample of 10 people?}
+	\only<6>{Population 2 better represented with a sample of 1000 people than 10 people?}
+	\only<7>{Benefit to size not linear: doubling the sample size does not make the estimate twice as good}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Surveys and Sources of bias}
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item Sampling bias and random sampling error apply when doing surveys
+   \item Other sources of bias in surveys:
+     \begin{itemize}
+       \item \blue{Unit non-response}: failure to reach selected units (in Afghanistan survey, 2754 out of 3097 sampled respondents agreed to participate $\rightarrow$ 11\% refusal rate)
+       \item \blue{Item non-response}:  respondents refuse to answer certain survey questions (in Afghanistan survey, the income variable had a non-response rate of approximately 5\%)
+       \item \blue{Mis-reporting}
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \includegraphics[width=\textwidth]{surveyprivacy.jpg}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Surveys and Sources of bias: Misreporting}
+ Different types (reasons) for mis-reporting
+ \begin{itemize}[<+->]
+   \item Social desirability bias: respondents choose an answer that is seen as socially desirable regardless of what they really think
+     \begin{itemize}
+       \item Asking question about support for foreign forces in Afghanistan sensitive
+       \item Will you vote in the next election?
+       \item How often do you lie to people close to you?
+       \item How many sexual partners have you had?
+       \item Would you be upset if a black family moved next door?
+     \end{itemize}
+   \item Observer effects: people being surveyed are affected (act differently) by being observed
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Summing Up}
+ \begin{itemize}[<+->]
+  \item We estimate population parameters from a sample
+  \item Make sure your sample is random to avoid bias
+  \item Random sampling error is a fact of life
+  \item 	More variation increases error, larger sample size reduces it
+  \item Problems occur with surveys
+ \end{itemize}
+\end{frame}
+
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \includegraphics[width=.8\textwidth]{crying-baby.jpg}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Left pic}
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+

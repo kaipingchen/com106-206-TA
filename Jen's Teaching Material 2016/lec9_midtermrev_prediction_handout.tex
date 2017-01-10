@@ -1,0 +1,274 @@
+\documentclass[handout]{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Midterm Roadmap, Surveys, Prediction}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {February 3, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{3 Feb. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item Midterm Feb. 5: no books, no laptops, multiple choice
+   \item Midterm review Feb 4, Feb 5 section (no section Monday Feb 8)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents%[part=1,pausesections]
+\end{frame}
+
+\section{Midterm Roadmap: Where we are in the course}
+
+\begin{frame}
+ \frametitle<+->{Our course goals}
+ \uncover<2->{By the end of the course, you should be able to:}
+ \begin{minipage}{.38\linewidth}
+ \begin{enumerate}
+   \item<3-> explain the basic concepts of research
+   \item<4-> better understand, interpret, and criticize scientific research
+   \item<5-> use basic features of the $R$ programming language
+ \end{enumerate}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \uncover<2->{\includegraphics[width=.8\textwidth]{goals.jpg}}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week1a.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week1b.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week2a.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week2b.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week3a.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week3b.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week4a.png}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Our course goals and course thus far}
+ \includegraphics[width=\textwidth]{week4b.png}
+\end{frame}
+
+\section{Surveys}
+
+\begin{frame}
+ \frametitle<+->{Surveys and Sources of bias}
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item Sampling bias and random sampling error apply when doing surveys
+   \item Other sources of bias in surveys:
+     \begin{itemize}
+       \item \blue{Unit non-response}: failure to reach selected units (in Afghanistan survey, 2754 out of 3097 sampled respondents agreed to participate $\rightarrow$ 11\% refusal rate)
+       \item \blue{Item non-response}:  respondents refuse to answer certain survey questions (in Afghanistan survey, the income variable had a non-response rate of approximately 5\%)
+       \item \blue{Mis-reporting}
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \includegraphics[width=\textwidth]{surveyprivacy.jpg}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Surveys and Sources of bias: Misreporting}
+ Different types (reasons) for mis-reporting
+ \begin{itemize}[<+->]
+   \item Social desirability bias: respondents choose an answer that is seen as socially desirable regardless of what they really think
+     \begin{itemize}
+       \item Asking question about support for foreign forces in Afghanistan sensitive
+       \item Will you vote in the next election?
+       \item How often do you lie to people close to you?
+       \item How many sexual partners have you had?
+       \item Would you be upset if a black family moved next door?
+     \end{itemize}
+   \item Observer effects: people being surveyed are affected (act differently) by being observed
+ \end{itemize}
+\end{frame}
+
+\section{Prediction}
+
+\begin{frame}
+ \frametitle<+->{Predict Outcome of the 2008 Presidential Election}
+ \begin{minipage}{.4\linewidth}
+ \begin{figure}
+ \caption{Map of electoral college votes for the 2008 election}
+ \includegraphics[width=.95\textwidth]{2008pres.png}
+ \end{figure}
+ \end{minipage}\hfill
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item Candidate with absolute majority of electoral votes elected as president
+   \item Total of 538 electoral votes, allocated to states (435 + 100)
+   \item Electors vote for candidate who won plurality of votes in state they represent: ``winner-take-all" system for each state
+   \item Winning presidential candidate must obtain at least 270 electoral votes
+   \item To predict presidential election, we must accurately predict winner of each state
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Predict Outcome of the 2008 Presidential Election}
+ \begin{minipage}{.4\linewidth}
+ \begin{figure}
+ \caption{Map of electoral college votes for the 2008 election}
+ \includegraphics[width=.95\textwidth]{2008pres.png}
+ \end{figure}
+ \end{minipage}\hfill
+ \begin{minipage}{.58\linewidth}
+ \begin{itemize}[<+->]
+   \item Election results by state: {\tt pres08.csv}
+   \item Many polls in each state leading up to election: {\tt polls08.csv}
+   \item Use polls conducted within each state on the day closest to election day
+   \item Prediction error = actual outcome - predicted outcome; Obama's vote margin
+   \item Calculate in R: {\tt for loop}, {\tt as.Date()}, {\tt unique()}, {\tt subset()}, {\tt mean()}
+   \item Visualize errors: {\tt hist()}, {\tt plot()}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \includegraphics[width=.8\textwidth]{crying-baby.jpg}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Left pic}
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}
+%\end{frame}
+%
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying-baby.jpg}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+

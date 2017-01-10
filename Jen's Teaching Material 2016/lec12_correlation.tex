@@ -1,0 +1,448 @@
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{subfigure}
+\usepackage{multirow}
+% \usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{liteblue}{rgb}{0.36, 0.54, 0.66}
+\newcommand{\lblue}{\textcolor{liteblue}}
+\usepackage{tikz}
+\usepackage{CJKutf8}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+% \usepackage{co}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{array}
+\usepackage[normalem]{ulem}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\black}{\textcolor{black}}
+\newcolumntype{x}[1]{%
+>{\centering\arraybackslash}p{#1}}%
+\def\arraybackslash{\let\\\tabularnewline}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+%{\hfill\insertframenumber/\inserttotalframenumber}%
+%\newcommand{\backupbegin}{
+%   \newcounter{framenumberappendix}
+%   \setcounter{framenumberappendix}{\value{framenumber}}
+%}
+%\newcommand{\backupend}{
+%   \addtocounter{framenumberappendix}{-\value{framenumber}}
+%   \addtocounter{framenumber}{\value{framenumberappendix}} 
+%}
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    % \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} % DELETED
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\title[COMM 106/206]{Correlation}
+%
+\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
+\author[Jennifer Pan]{Jennifer Pan}
+%
+\institute[Stanford]{Assistant Professor\\
+  Department of Communication\\
+  Stanford University
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  \mbox{ }\\
+  {February 17, 2016}}
+
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+\date{17 Feb. 2016}
+
+\begin{frame}
+ \frametitle<+->{Announcements}
+ \begin{itemize}[<+->]
+   \item Monday Feb 29 Section and Tuesday Mar 1 Office Hours
+   \item Midcourse Survey
+   \item Grade Distribution
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Midterm Feedback}
+ \begin{itemize}[<+->]
+   \item 20 responses out of a class of 44 (selection bias?)
+   \item Lecture clear and engaging (8 people)
+   \item Sections very helpful (4 people)
+   \item Go slower when going through R in class (3 people)
+   \item Pset expectations not clear (5 people)\\ \uncover<7->{\blue{Median grade is A- on Pset 1 and 2}} \pause
+   \item Respondents divided on group activities:
+     \begin{itemize}
+       \item Group work is what's going well about class and there should be more (3 people)
+       \item Group work should be eliminated (2 people)
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Grade Distribution}
+ \begin{minipage}{.35\linewidth}
+ \begin{itemize}
+   \item A+: $>4$
+   \item A: 4
+   \item A-: $>=3.5$ to $<4$
+   \item B+: $>3$ to $<3.5$
+   \item B: 3
+   \item B-: $>=2.5$ to $<3$
+   \item C+: $>2$ to $<2.5$
+   \item C: 2
+   \item C-: $>=1.5$ to $<2$
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.6\linewidth}
+ \uncover<2->{\includegraphics[width=.95\textwidth]{grading.png}}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Where we are}
+ \begin{itemize}[<+->]
+   \item Previously
+     \begin{itemize}
+       \item Describing data
+       \item Assessing hypotheses by making comparisons
+     \end{itemize}
+   \item This week
+     \begin{itemize}
+       \item Making comparisons with interval variables (correlation)
+       \item Thinking systematically about how X relates to Y (linear regression)
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Making Comparisons}
+\begin{table}[!htp]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+X & Y & How to Compare \\
+\hline
+\uncover<2->{nominal} & \uncover<2->{nominal} & \uncover<3->{cross-tabulation }\\
+\hline
+\uncover<4->{nominal}& \uncover<4->{ordinal}& \uncover<5->{cross-tabulation } \\
+\hline
+\uncover<6->{nominal} & \uncover<6->{interval} & \uncover<7->{comparison of means} \\
+\hline
+\uncover<8->{ordinal} & \uncover<8->{nominal}& \uncover<9->{cross-tabulation }\\
+\hline
+\uncover<10->{ordinal}& \uncover<10->{ordinal} & \uncover<11->{cross-tabulation }\\
+\hline
+\uncover<12->{ordinal} & \uncover<12->{interval} & \uncover<13->{comparison of means} \\
+\hline
+\uncover<14->{interval} & \uncover<14->{interval} & \only<15>{{\tt plot()}}\only<16>{\alert{correlation}} \\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot: {\tt plot()}}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{myginiplot.pdf}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}[<+->]
+   \item For each year, the gini coefficient for the US
+   \item Each point is an observation
+   \item Each axis is a variable
+   \item If you have an independent variable, it goes on the x-axis
+   \item Dependent on y-axis
+   \item Great `first look' at your data
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot: So...}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{myginiplot.pdf}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}
+   \item \blue{Pattern}: \uncover<2->{curvilinear}
+   \item \blue{Direction}: \uncover<3->{negative, then positive; income inequality in the US declined until the 1970s, then increased}
+   \item \blue{Strength}: 
+     \begin{itemize}
+       \item \uncover<4->{Pretty consistent}
+       \item \uncover<5->{Very few exceptions}
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot: Another one}
+ \begin{minipage}{.5\linewidth}
+ \includegraphics[width=\textwidth]{lifeexp.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}
+   \item \blue{Pattern}: \uncover<2->{linear?}
+   \item \blue{Direction}: \uncover<3->{positive; as income increases people generally live longer}
+   \item \blue{Strength}: 
+     \begin{itemize}
+       \item Consistency: \uncover<4->{moderate}
+       \item Exceptions: \uncover<5->{some exceptions to trend!}
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot: One more}
+ \begin{minipage}{.5\linewidth}
+ \includegraphics[width=\textwidth]{illiteracy.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}
+   \item \blue{Pattern}: \uncover<2->{not obvious}
+   \item \blue{Direction}: \uncover<3->{positive, maybe?}
+   \item \blue{Strength}: 
+     \begin{itemize}
+       \item Consistency: \uncover<4->{very week}
+       \item Exceptions: \uncover<5->{no obvious relationship}
+     \end{itemize}
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot: Be Careful}
+ \begin{minipage}{.48\linewidth}
+ \includegraphics[width=\textwidth]{bushreagan.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.48\linewidth}
+ \begin{itemize}
+   \item Sometimes observations stack up on \blue{same} point
+   \item Can \blue{hide} general pattern\\
+   (looks like no relationship, but actually a moderately strong relationship!)
+   \item Happens when individuals \blue{approximate} responses (round up or round down)
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons with Interval Data}
+ \begin{center}
+ \includegraphics[width=\textwidth]{comp_r1.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons with Interval Data: Features of r}
+ \begin{center}
+ \includegraphics[width=\textwidth]{comp_r2.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Making Comparisons with Interval Data: Notice}
+ \begin{center}
+ \includegraphics[width=\textwidth]{comp_r2.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot vs Correlation}
+ \begin{minipage}{.58\linewidth}
+ \includegraphics[width=\textwidth]{bushreagan.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \begin{itemize}
+   \item $r = 0.589$ (linear?)
+   \item moderately strong, positive ($r > 0$) relationship 
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot vs Correlation}
+ \begin{minipage}{.58\linewidth}
+ \includegraphics[width=\textwidth]{ethnicincome.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \begin{itemize}
+   \item $r = -0.321$ (linear?)
+   \item weak, negative ($r < 0$) relationship 
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Scatterplot vs Correlation}
+ \begin{minipage}{.58\linewidth}
+ \includegraphics[width=\textwidth]{govincome.png}
+ \end{minipage}\hfill
+ \begin{minipage}{.38\linewidth}
+ \begin{itemize}
+   \item $r = 0.810$ (close to linear)
+   \item strong, positive ($r > 0$) relationship 
+ \end{itemize}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Correlation Formula}
+ \begin{center}
+ \includegraphics[width=\textwidth]{corr_formula.png}
+ \end{center}
+ \pause
+ \begin{enumerate}[<+->]
+   \item Standardize every observation of X: subtract from mean of X and divide by sd of X
+   \item Standardize every observation of Y: subtract from mean of Y and divide by sd of Y
+   \item Multiplying (1) and (2) together
+   \item Add up, then divide by sample size (N) minus one
+ \end{enumerate}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Correlation Formula Example}
+ \begin{center}
+ \includegraphics[width=.85\textwidth]{corr_formul_ex.png}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Correlation: R to the Rescue}
+ \begin{itemize}[<+->]
+   \item {\tt cor()}
+   \item US inequality and political polarization (difference in mean voting patterns of democrats and republicans in Congress)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Correlation: Symmetry}
+ \begin{itemize}[<+->]
+   \item r is ``symmetric"
+   \item Correlation between \alert{X} and \blue{Y}...is same as between \blue{Y} and \alert{X}
+   \item Even if plots look different
+   \item Correlation doesn't change according to which  variable is dependent  or independent
+ \end{itemize}
+ \vspace{-.2cm}
+ \begin{center}
+ \uncover<3->{\includegraphics[width=.85\textwidth]{lifeincome.png}}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Correlation: Unit-less}
+ \begin{minipage}{.3\linewidth}
+ \begin{itemize}[<+->]
+   \item Correlation coefficient (r) is not expressed in terms of units of original variables
+   \bigskip
+   \item Makes no difference what original units of variable were
+ \end{itemize}
+ \end{minipage}\hfill
+ \begin{minipage}{.65\linewidth}
+ \uncover<4->{Example:}
+ \begin{itemize}[<+->]
+       \item Correlation between daily max temp in Palo Alto and Berkeley is 0.72...
+       \item Can convert one city to degrees Celsius...or both to Celsius...or both to Fahrenheit (or Kelvin!)
+       \item r remains 0.72!
+ \end{itemize}
+  \begin{center}
+ \uncover<5->{\includegraphics[width=.85\textwidth]{FtoC.png}}
+ \end{center}
+ \end{minipage}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Correlation Does not Imply Causation}
+ \includegraphics[width=.7\textwidth]{CorrelationCausation.jpg}
+ \begin{itemize}[<+->]
+   \item If X and Y are correlated in the sample
+   \item X may cause Y...Y may cause X...Z may cause both...pure chance (random sampling error)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Examining Your Data}
+ \begin{itemize}[<+->]
+   \item Goal: Practice working with real data in R; make the concepts we've been learning in class application to your work and life
+   \item Work in groups (learn from your peers)
+   \item Decided on a dataset (your own, one you've come across)
+   \item Bring that dataset to class next Wed 2/24 (csv from excel or google sheets)
+   \item Explore that data in class next Wed 2/24 (plots, descriptive stats)
+   \item Share
+ \end{itemize}
+\end{frame}
+%\begin{frame}
+% \frametitle{Whole pic}
+%% \framesubtitle{MA Senate Election (Metaxas and Mustafaraj 2010)}
+% \begin{center}
+% \includegraphics[width=.7\textwidth]{graphinvertu.png}
+% \end{center}
+%\end{frame}
+%
+
+%\begin{frame}
+% \frametitle<+->{Left pic}
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying.png}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Right pic}
+% \begin{minipage}{.48\linewidth}
+% \begin{itemize}[<+->]
+%   \item TBD
+%   \item TBD
+% \end{itemize}
+% \end{minipage}\hfill
+% \begin{minipage}{.48\linewidth}
+% \includegraphics[width=\textwidth]{crying.png}
+% \end{minipage}
+%\end{frame}
+
+%\begin{frame}
+% \frametitle<+->{Summing Up}
+% \uncover<2->{\alert{Reminders}}
+% \pause
+% \begin{itemize}[<+->]
+%  \item Team Feedback: be specific about your observations
+%  \item Lab 3: replicate the \alert{results}
+% \end{itemize}
+%\end{frame}
+
+\end{document}
+
