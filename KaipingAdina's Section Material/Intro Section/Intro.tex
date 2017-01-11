@@ -57,10 +57,10 @@
 
 \title[COMM 106/206]{Introduction to R}
 %
-\subtitle{\black{Communication Research Methods}} %Comm 106/206: 
-\author[Jennifer Pan]{Jennifer Pan}
+\subtitle{\black{Comm 106/206 Section}} %Comm 106/206: 
+\author[Jennifer Pan]{Adina Abeles and Kaiping Chen}
 %
-\institute[Stanford]{Assistant Professor\\
+\institute[Stanford]{
   Department of Communication\\
   Stanford University
   \mbox{ }\\
@@ -72,7 +72,7 @@
   \mbox{ }\\
   \mbox{ }\\
   \mbox{ }\\
-  {January 13, 2016}}
+  {January 23-24, 2017}}
 
 
 \date{}
@@ -82,24 +82,24 @@
 \frame{\titlepage}
 \date{13 Jan. 2016}
 
-\begin{frame}
- \frametitle<+->{Announcements}
- \begin{itemize}[<+->]
-   \item Sections: 
-     \begin{itemize}
-       \item Thursday 4:30-5:20 pm Bldg 240 Rm 101
-       \item Friday 1:30-2:20 pm Bldg 120 Rm 314
-       \item Monday 2:30-3:20 pm Bldg 160 Rm 319
-     \end{itemize}
-   \item Pset 1: on Canvas, due Wed 1/20 before class (email before 3pm to stanfordcommresearchmethods@gmail.com)
- \end{itemize}
-\end{frame}
+%\begin{frame}
+ %\frametitle<+->{Announcements}
+ %\begin{itemize}[<+->]
+   %\item Sections: 
+     %\begin{itemize}
+       %\item Thursday 4:30-5:20 pm Bldg 240 Rm 101
+       %\item Friday 1:30-2:20 pm Bldg 120 Rm 314
+       %\item Monday 2:30-3:20 pm Bldg 160 Rm 319
+     %\end{itemize}
+   %\item Pset 1: on Canvas, due Wed 1/20 before class (email before 3pm to stanfordcommresearchmethods@gmail.com)
+ %\end{itemize}
+%\end{frame}
 
-\begin{frame}
- \frametitle<+->{Revised schedule}
- \uncover<2->{
- \includegraphics[width=.9\textwidth]{schedule2.png}}
-\end{frame}
+%\begin{frame}
+ %\frametitle<+->{Revised schedule}
+ %\uncover<2->{
+ %\includegraphics[width=.9\textwidth]{schedule2.png}}
+%\end{frame}
 
 \begin{frame}
  \frametitle<+->{Where we are?}
@@ -142,8 +142,8 @@
    \item www.rstudio.com
    \item RStudio Desktop
    \item Open Source Edition (Free)
-   \item Windows: RStudio 0.99.491 - Windows Vista/7/8/10
-   \item Mac: RStudio 0.99.491 - Mac OS X 10.6+ (64-bit)
+   \item Windows: RStudio %0.99.491 - Windows Vista/7/8/10
+   \item Mac: RStudio %0.99.491 - Mac OS X 10.6+ (64-bit)
  \end{itemize}
 \end{frame}
 
@@ -199,7 +199,7 @@
 \begin{frame}
  \frametitle<+->{Objects}
  \begin{itemize}
-   \item Shortcuts to some pice of information or data
+   \item Shortcuts to some piece of information or data
    \item Save work as a R Script (File $\rightarrow$ New File $\rightarrow$ R Script)
    \item Create objects with assignment operator: {\tt <-}
    \item Use intuitive and informative names:
@@ -207,6 +207,7 @@
        \item Cannot begin with a number, but can contain numbers
        \item Cannot contain spaces
        \item Avoid special characters like \#, \%, \$
+       \item Avoid special letters like p, c, 
        \item Names are case sensitive
      \end{itemize}
    \item Once you have created an object, see in Environment window on the top right (RStudio), see all objects with {\tt ls()}
@@ -218,6 +219,25 @@
  \begin{itemize}
    \item R recognizes different types of objects by assigning each object to a class
    \item Allows R to perform appropriate operations on an object depending on its class
+     \begin{itemize}
+       \item Number is stored as a numeric object
+       \item Character string is recognized as a character object
+     \end{itemize}
+   \item RStudio: Environment will show you the class of objects
+   \item Use {\tt class()} to see the class of objects
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle<+->{Classes}
+ \begin{itemize}
+   \item Numeric (1, 2, 3, ...)
+   \item Factor (Male, Female)
+    \begin{itemize}
+       \item Levels
+       \item Nominal
+     \end{itemize}
+   \item Character (names, addresses, etc.)
      \begin{itemize}
        \item Number is stored as a numeric object
        \item Character string is recognized as a character object
