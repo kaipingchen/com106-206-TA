@@ -59,11 +59,11 @@ world.pop
 ### Functions
 ## Existing functions of R
 length(world.pop) ## how many elements in the vector
-min(world.pop)    ## smallest number in the vector 
-max(world.pop)    ##largest number in the vector
-range(world.pop)  ## smallest and largest number in the vector
-mean(world.pop)    ##arithmatic mean of vector elements
-sum(world.pop) / length(world.pop) ##another way of getting the mean
+min(world.pop,na.rm=TRUE)    ## smallest number in the vector 
+max(world.pop,na.rm=TRUE)    ##largest number in the vector
+range(world.pop,na.rm=TRUE)  ## the smallest and largest number in the vector
+mean(world.pop,na.rm=TRUE)    ##arithmatic mean of vector elements
+sum(world.pop, na.rm=TRUE) / length(world.pop) ##another way of getting the mean
 
 ##Special look at the sequence function
 year <- seq(from = 1950, to = 2010, by = 10) ##This creates another vector (numeric elements in a one-dimensional array), and another object (assigned to the name 'year')
@@ -73,7 +73,6 @@ names(world.pop) <- year # assign a name label to a vector
 names(world.pop) 
 
 ## You can also create your own functions in R!  
-##Kaiping: might this be too much?  I know it is in book...but wonder if we need it?  Maybe?
 my.summary <- function(x){ # function takes one input
   s.out <- sum(x) # adding all the values in a vector together
   l.out <- length(x) # l.out stores the length of vector x: how many elements in x
@@ -85,18 +84,21 @@ my.summary <- function(x){ # function takes one input
 
 my.summary(world.pop)
 
-### Data Files
-##Kaiping - should we send students the csv, dta and save files?
 
+### Working with a dataset
+## import data Files
 setwd("~/Source-Code/qss/INTRO") # set your working directory: where you store data files and scripts
-##Since they won't have qss/INTRO data, we will have to send to them.  We can do that during class or ahead of time?
-##We may want to set the workding directory first.  I always start out with setting my wd.
-#For instance, I would recommend setting a working directory for section/group work:
-#setwd("~/Users/aabeles/Documents/Comm106/Section"
-#I also always set up an "R Project" so I can keep track of my different projects...but not sure if that is the best way for everyone?
-## getwd()
-
+# We highly suggest you create a folder called comm106206 and a subfolder called section to store all section related data and scripts.
 UNpop <- read.csv("UNpop.csv") # read in a csv type data file
+
+## import Packages needed for openning and anlayzing your data
+install.packages("foreign") # install a package called "foreign" to read data files in .dta, .spss format
+library("foreign") # load the package
+
+#read.dta("UNpop.dta")
+#read.spss("UNpop.sav")
+
+## inspect your data
 class(UNpop) #"data.frame"
 head(UNpop) # look the first several rows of your data file
 View(UNpop) # look all of the rows in your data file, discuss rows and columns. Most of your data will be in a dataframe. Think of the columns as 'variables'
@@ -106,15 +108,6 @@ nrow(UNpop) # the number of rows in the data file: how many observations you hav
 ncol(UNpop)
 dim(UNpop) 
 summary(UNpop) # the basic statistic summary of your data file: min, max, mean, median etc.
-
-### Packages
-## I think I would put this right here, so this section is about importing different kinds of data.
-
-install.packages("foreign") # install a package called "foreign" to read data files in .dta, .spss format
-library("foreign") # load the package
-
-#read.dta("UNpop.dta")
-#read.spss("UNpop.sav")
 
 UNpop$world.pop # inspect the values of one variable in your data file
 
@@ -130,8 +123,8 @@ world.pop
 mean(world.pop)
 mean(world.pop, na.rm = TRUE) # using na.rm=TRUE to ignore the missing values in your data set when calculate mean
 
-### Saving Objects
-
-write.csv(UNpop, file = "UNpop.csv")
+## Saving Objects
+## Usually you might generate some new data frames from R and you want to save it:
+write.csv(UNpop_new, file = "UNpop.csv")
 
 
