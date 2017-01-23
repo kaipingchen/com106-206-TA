@@ -31,9 +31,9 @@ my_grades[2]
 my_grades[2] = 93
 # remove the first element in my_grades
 my_grades[-1] ## this doesn't work.  This just provides you a list without the first element, but does not actually REMOVE the first element.
-# note: you must assign it to my_grades in order to really do the remove!!
+# note: you must assign it to my_grades in order to really do the remove on the my_grades vector!!
 my_grades <- my_grades[-1]
-# Save the first and third element in my_grades to a new object (K: should we say object instead of variable here? so we don't confuse ? - A)
+# Save the first and third element in my_grades to a new object
 my_grades_partial = my_grades[c(1,3)]
 
 
@@ -52,11 +52,13 @@ setwd("~/Source-Code/qss/INTRO") # set your working directory: where you store d
 UNpop <- read.csv("UNpop.csv") # read in a csv type data file
 
 ## inspect your data
+# note: the number of rows indicate the # of observations you have
+# note: the number of columns indicate the # of variables in your dataset
 head(UNpop) # look the first several rows of your data file
 dim(UNpop)  # look at the dimension of your dataset: how many rows (obs) and columns
 summary(UNpop) # the basic statistic summary of your data file: min, max, mean, median etc.
-View(UNpop) ## K: I think we should add this in here, so they see how they can see the data.  
-#I also will take a moment to make sure they know rows and columns, and to make sure they know the columns are the variables
+View(UNpop) # see the data.  
+
 
 UNpop$world.pop # inspect the values of one variable in your data file
 
@@ -73,7 +75,7 @@ write.csv(UNpop_partial1, file = "UNpop_first_three_rows.csv")
 
 
 
-### Turnout Exercise Solutions ###K: I'm worried this will freak them out a bit - we'll have to go slowly with them :)
+### Turnout Exercise Solutions
 turnout <- read.csv("turnout.csv")
 dim(turnout)
 n.obs = dim(turnout)[1]
