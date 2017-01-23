@@ -1,0 +1,2 @@
+world.pop[c(2, 3)]<- c(302600, 3690000)
+load("/Users/aabeles/Documents/Comm106/Book/qss-master/INTRO/UNpop.RData")
