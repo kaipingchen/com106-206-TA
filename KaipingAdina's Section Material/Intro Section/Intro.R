@@ -1,6 +1,6 @@
 #### Comm106/206 Introduction Section
 #### Source: QSS Book (edited by Adina Abeles, Kaiping Chen)
-
+setwd("~/com106-206-TA/KaipingAdina's Section Material/Intro Section")
 ### R is a calculator!  Arithmetic Operations
 1 + 2
 
