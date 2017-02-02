@@ -43,7 +43,7 @@ points(rep112$dwnom1, rep112$dwnom2, pch = 17, col = "red")
 dem.median <- tapply(dem$dwnom1, dem$congress, median)
 rep.median <- tapply(rep$dwnom1, rep$congress, median)
 
-par(cex = 1.5)
+
 ## Plot the party median for Democrats over different congressional years.
 plot(names(dem.median), dem.median, col = "blue", type = "l",
      xlim = c(80, 115), ylim = c(-1, 1), xlab = "Congress",
@@ -57,7 +57,7 @@ text(110, 0.85, "Republican\n Party")
 
 ## Gini coefficient data
 ## I think the example in the book is overly complicated. I recommend we use something way simpler.  
-## Like lets just look at the correlation of the dw nominate score?
+## Like lets just look at the correlation of Gini coefficient and the year
 
 ### Gini coefficient data
 gini <- read.csv("USGini.csv")
