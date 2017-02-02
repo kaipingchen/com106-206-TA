@@ -1,10 +1,7 @@
-##### Chapter 2: Causality
-
-
 #### Section 2.2: Subsetting the Data in R
+
 ### Quick note on logical data - TRUE or FALSE/ 1 or 0
 class(TRUE)
-
 as.integer(TRUE)
 as.integer(FALSE)
 
@@ -19,13 +16,10 @@ sum(x) # number of TRUEs
 ## Learn the symbols ==, !=, >, <, <=, >=, &, |
 
 4 > 3
-
 "Hello" == "hello"  # R is case-sensitive
-"Hello" != "hello"
 
 x <- c(3, 2, 1, -2, -1)
 x >= 2
-x != 1
 
 ## Which ones in the x vector are GREATER than 0 AND Less than or equal to two?
 ##logical conjunction of two vectors with logical values
@@ -40,7 +34,7 @@ x.int
 ### Section 2.2.3: Subsetting
 
 ## callback rate for race == "black"
-## First import the resume file.
+## First import the resume file (note: please set up your working directory ot the place where you have the dataset)
 resume <- read.csv("resume.csv")
 ## Quickly look at your data
 head(resume)
@@ -79,21 +73,6 @@ mean(resumeB$call) # callback rate for blacks
 resumeBf <- subset(resume, select = c("call", "firstname"),
                    subset = (race == "black" & sex == "female"))
 head(resumeBf)
-
-## ## an alternative syntax with the same results, using brackets
-resumeBf <- resume[resume$race == "black" & resume$sex == "female",
-                 c("call", "firstname")]
-
-##Additional examples to look at:
-## black male
-resumeBm <- subset(resume, subset = (race == "black") & (sex == "male"))
-## white female
-resumeWf <- subset(resume, subset = (race == "white") & (sex == "female"))
-## white male
-resumeWm <- subset(resume, subset = (race == "white") & (sex == "male"))
-## racial gaps
-mean(resumeWf$call) - mean(resumeBf$call) # among females
-mean(resumeWm$call) - mean(resumeBm$call) # among males
 
 ### Section 2.2.4: Simple Conditional Statements: IFELSE
 
