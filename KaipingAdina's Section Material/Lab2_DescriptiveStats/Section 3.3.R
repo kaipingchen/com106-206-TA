@@ -7,7 +7,7 @@
 
 ##First let's get some data.  We'll use afghan.csv
 
-## load data
+## load data (please set up your working directory)
 afghan <- read.csv("afghan.csv")
 
 ## summarize variables of interest (ISAF = Inernational Scurity Assitance Force)
@@ -36,15 +36,6 @@ barplot(ISAF.ptable,
         main = "Civilian victimization by the ISAF", ## main is title of your plot
         xlab = "Response category", ##xaxis label
         ylab = "Proportion of the respondents", ylim = c(0, 0.7)) ##yaxis label and the scale of y axis
-
-## repeat the same for the victimization by Taliban
-Taliban.ptable <- prop.table(table(Taliban = afghan$violent.exp.taliban, 
-                                   exclude = NULL)) 
-barplot(Taliban.ptable,
-        names.arg = c("No harm", "Harm", "Nonresponse"), 
-        main = "Civilian victimization by the Taliban",
-        xlab = "Response category",
-        ylab = "Proportion of the respondents", ylim = c(0, 0.7)) 
 
 ### Section 3.3.2: Histogram
 ##Create histogram for age.
@@ -88,7 +79,7 @@ hist(afghan$age)
 boxplot(educ.years ~ province, data = afghan, 
         main = "Education by province", ylab = "Years of education")
 
-tapply(afghan$violent.exp.taliban, afghan$province, mean, na.rm = TRUE) ## This function lets you apply aply a function (mean) to your main variable of interest (harm by Taliban) by your second variable (province)
+tapply(afghan$violent.exp.taliban, afghan$province, mean, na.rm = TRUE) ## This function lets you apply a function (mean) to your main variable of interest (harm by Taliban) by your second variable (province)
 tapply(afghan$violent.exp.ISAF, afghan$province, mean, na.rm = TRUE)
 
 ## Saving or Printing a Graph
