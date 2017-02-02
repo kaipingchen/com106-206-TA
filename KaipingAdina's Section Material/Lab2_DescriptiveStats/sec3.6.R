@@ -44,11 +44,11 @@ dem.median <- tapply(dem$dwnom1, dem$congress, median)
 rep.median <- tapply(rep$dwnom1, rep$congress, median)
 
 par(cex = 1.5)
-## Democrats
+## Plot the party median for Democrats over different congressional years.
 plot(names(dem.median), dem.median, col = "blue", type = "l",
      xlim = c(80, 115), ylim = c(-1, 1), xlab = "Congress",
      ylab = "DW-NOMINATE score (1st dimension)")
-## add Republicans
+## add Republicans into the graph: the party median for Republican over different congressional years
 lines(names(rep.median), rep.median, col = "red")
 text(110, -0.6, "Democratic\n Party")
 text(110, 0.85, "Republican\n Party")
