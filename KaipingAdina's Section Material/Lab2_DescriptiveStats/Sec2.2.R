@@ -1,38 +1,5 @@
 #### Section 2.2: Subsetting the Data in R
 
-### Quick note on logical data - TRUE or FALSE/ 1 or 0
-class(TRUE)
-as.integer(TRUE)
-as.integer(FALSE)
-
-## This is a logical vector, it contains only "TRUE" and "FALSE". Note: when creating this vector, 
-## you do not need to put TRUE and FALSE in quotes.
-x <- c(TRUE, FALSE, TRUE) # a vector with logical values
-
-mean(x) # proportion of TRUEs
-sum(x) # number of TRUEs
-
-### Section 2.2.2: Relational Operators
-## Learn the symbols ==, !=, >, <, <=, >=, &, |
-
-4 > 3
-"Hello" == "hello"  # R is case-sensitive
-
-x <- c(3, 2, 1, -2, -1)
-x >= 2
-
-## Which ones in the x vector are GREATER than 0 AND Less than or equal to two?
-##logical conjunction of two vectors with logical values
-(x > 0) & (x <= 2)
-## Which ones in the x vector are greater than two OR less than or equal to -1?
-##logical disjunction of two vectors with logical values
-(x > 2) | (x <= -1)
-
-x.int <- (x > 0) & (x <= 2) # Now create a new object (logical vector) 
-x.int
-
-### Section 2.2.3: Subsetting
-
 ## callback rate for race == "black"
 ## First import the resume file (note: please set up your working directory ot the place where you have the dataset)
 resume <- read.csv("resume.csv")
