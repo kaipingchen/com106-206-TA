@@ -1,3 +1,4 @@
+# Research Question: Does Racial Discrimination exist in the labor market?
 #### Section 2.2: Subsetting the Data in R
 ## First import the resume file (note: please set up your working directory ot the place where you have the dataset)
 resume <- read.csv("resume.csv")
