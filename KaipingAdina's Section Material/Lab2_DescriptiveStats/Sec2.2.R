@@ -64,7 +64,9 @@ levels(resume$type)
 ## obtain the number of observations for each level (two very important functions)
 table(resume$type) # raw frequency count
 prop.table(table(resume$type)) # proportion
-
+# cross-tab: how many people under each type are called (and not called)?
+table_type_call = table(type = resume$type, call = resume$call)
+table_type_call
 # compare the mean call rate for each type (compare DV under different levels of an IV)
 tapply(resume$call, resume$type, mean)
 
