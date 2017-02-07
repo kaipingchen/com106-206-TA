@@ -57,6 +57,7 @@ resume$type[resume$race == "white" & resume$sex == "female"] <- "WhiteFemale"
 resume$type[resume$race == "white" & resume$sex == "male"] <- "WhiteMale"
 
 ## coerce new character variable into a factor variable
+# note: you must as.factor the variable type in order to tell computers that it is nominal
 class(resume$type) # the type variable is character.
 resume$type <- as.factor(resume$type)
 ## list all levels of a factor variable
@@ -64,16 +65,18 @@ levels(resume$type)
 
 ## obtain the number of observations for each level (two very important functions)
 table(resume$type) # raw frequency count
-table(resume$type, resume$call) ##table by category
 prop.table(table(resume$type)) # proportion
+table(type = resume$type, call = resume$call) ##table by category
 
 # cross-tab: how many people under each type are called (and not called)?
-
+# remember that IV is on the column and DV is on the row
 table_type_call = table(call =resume$call, type = resume$type) ## Write the row variable first, then column variable
+table_type_call
 prop.table(table_type_call) ## this will provide percentage of each cell as part of the total population
 prop.table(table_type_call, 1) # the "1" included in prop.table will tell R to make the rows add up to 100%
+# note: the code line below responds to the lecture that the percentages in each column should sum up to 1
 prop.table(table_type_call, 2) # the "2" included in prop.table will tell R to make columns add up to 100%
-##You can also write it out like this:
+##You can also write the above code line like this:
 prop.table(table(call = resume$call, type = resume$type), 2) ## note prop.table function is for a table.
 
 
