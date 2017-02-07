@@ -56,6 +56,11 @@ UNpop <- read.csv("UNpop.csv") # read in a csv type data file
 # note: the number of rows indicate the # of observations you have
 # note: the number of columns indicate the # of variables in your dataset
 head(UNpop) # look the first several rows of your data file
+# sometimes, you do not like the column name given by the original dataset, 
+# you can rename it!
+colnames(UNpop)[1] <- "year recorded"
+colnames(UNpop)[2] <- "population"
+head(UNpop)
 dim(UNpop)  # look at the dimension of your dataset: how many rows (obs) and columns
 summary(UNpop) # the basic statistic summary of your data file: min, max, mean, median etc.
 View(UNpop) # see the data.  
