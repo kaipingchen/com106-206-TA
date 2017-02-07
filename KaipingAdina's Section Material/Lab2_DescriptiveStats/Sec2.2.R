@@ -69,9 +69,12 @@ prop.table(table(resume$type)) # proportion
 
 # cross-tab: how many people under each type are called (and not called)?
 
-table_type_call = table(call = resume$call, type = resume$type)
-table_type_call
-
+table_type_call = table(call =resume$call, type = resume$type) ## Write the row variable first, then column variable
+prop.table(table_type_call) ## this will provide percentage of each cell as part of the total population
+prop.table(table_type_call, 1) # the "1" included in prop.table will tell R to make the rows add up to 100%
+prop.table(table_type_call, 2) # the "2" included in prop.table will tell R to make columns add up to 100%
+##You can also write it out like this:
+prop.table(table(call = resume$call, type = resume$type), 2) ## note prop.table function is for a table.
 
 
 # compare the mean call rate for each type (compare DV under different levels of an IV)
