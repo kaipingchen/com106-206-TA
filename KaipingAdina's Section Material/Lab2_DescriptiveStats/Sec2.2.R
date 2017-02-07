@@ -7,15 +7,16 @@ head(resume)
 dim(resume)
 
 ##What is the callback rate?  Need to look just at the column "call" and find out how many that have 
-## race == "black" received a call back.
+## Learn these: == , !=, >, <, >=, <=, &, | 
 ## Note, when subsetting a single vector, you don't need a comma in the brackets [ ]
 ## When subsetting a data frame, you need the comma to tell R which row and column you are subsetting
 
 ##Access one column (variable) in a data set
-call_rate_all = resume$call
+resume$call
 
 # Obatin the callback info for respondents whose race == black. We need to subset the column!
-call_rate_black = resume$call[resume$race == "black"]
+levels(resume$race)
+resume$call[resume$race == "black"]
 
 ##Let us compare the mean (average) call rate for the black group and the white group
 mean_black_call = mean(resume$call[resume$race == "black"]) ## Note the parentheses. Function works on everything inside parentheses is 
@@ -31,13 +32,13 @@ resume$race[1:5]
 resumeB <- resume[resume$race == "black", ] 
 dim(resumeB) # this data.frame has fewer rows than the original data.frame
 head(resumeB)
-mean(resumeB$call) # callback rate for blacks
+mean(resumeB$call) # callback rate for race == black
 
 ##More on Create new datasets with subset function.
 
 ## keep "call" and "firstname" variables 
-## also keep observations with black female-sounding names
-# note: select = c() is for you to select what variables you want to have for the new dataset, subset = is for you to give the criteria for subseeting
+## also keep observations with race==black and sex==female
+# note: select = c() is for you to select what variables you want to have for the new dataset, subset = is for you to give the criteria for subsetting
 resumeBf <- subset(resume, select = c("call", "firstname"),
                    subset = (race == "black" & sex == "female"))
 head(resumeBf)
@@ -63,10 +64,16 @@ levels(resume$type)
 
 ## obtain the number of observations for each level (two very important functions)
 table(resume$type) # raw frequency count
+table(resume$type, resume$call) ##table by category
 prop.table(table(resume$type)) # proportion
+
 # cross-tab: how many people under each type are called (and not called)?
-table_type_call = table(type = resume$type, call = resume$call)
+
+table_type_call = table(call = resume$call, type = resume$type)
 table_type_call
+
+
+
 # compare the mean call rate for each type (compare DV under different levels of an IV)
 tapply(resume$call, resume$type, mean)
 
