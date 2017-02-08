@@ -11,18 +11,11 @@
 afghan <- read.csv("afghan.csv")
 
 ## summarize variables of interest (ISAF = Inernational Scurity Assitance Force)
-colnames(afghan)
 dim(afghan)
 head(afghan)
-summary(afghan$age)
-summary(afghan$educ.years)
-summary(afghan$employed)
-summary(afghan$income)
-par(cex = 1.5)
 
 ## a vector of proportions to plot
-table(afghan$violent.exp.ISAF) ## Table gives you a count. Note the column names.
-table(ISAF = afghan$violent.exp.ISAF) # now we are naming the table.
+table(ISAF = afghan$violent.exp.ISAF)
 prop.table(table(ISAF = afghan$violent.exp.ISAF, 
                  exclude = NULL)) ## This provides propotions rather than a count.  Exclude = NULL means to include missing data.
 ISAF.ptable <- prop.table(table(ISAF = afghan$violent.exp.ISAF, 
@@ -42,8 +35,6 @@ barplot(ISAF.ptable,
 hist(afghan$age, freq = FALSE, ylim = c(0, 0.04), xlab = "Age", ## set frequence to FALSE or will give you frequency instead of density
      main = "Distribution of respondent's age")
 
-par(cex = 1.5)
-
 ## histogram of education.  use `breaks' to choose bins 
 summary(afghan$educ.years) ## get a sense of your data
 
@@ -59,12 +50,8 @@ text(x = 3, y = 0.5, "median") ## Tell the graph where to add a text, and what t
 ## add a vertical line representing median
 abline(v = median(afghan$educ.years))  #Tell the graph to add a vertical line (abline)
 
-## if you want to add a horizontal line: abline(h = )
-## if you want to add a slope line: abline(a = y, b = s), where y is the intercept and b is the slope
-
-## Want to add some color?  Add col = to your arguments:, want an interesting line?  try out lty = 
-#Want to change the thickness?  Try out lwd = 
-abline(v = median(afghan$educ.years), col = "red", lty = "dashed", lwd=2)
+## A more general function to plot a line:
+lines(x = rep(median(afghan$educ.years), 2), y = c(0, 0.5))
 
 ### Section 3.3.3: Box Plot
 ## now we want to visualize the quartiles, identify outliers.
@@ -83,8 +70,10 @@ tapply(afghan$violent.exp.taliban, afghan$province, mean, na.rm = TRUE) ## This 
 tapply(afghan$violent.exp.ISAF, afghan$province, mean, na.rm = TRUE)
 
 ## Saving or Printing a Graph
-
-## Use function in graph window -> EXPORT -> SAVE AS IMAGE or PDF
+pdf(file = "educ.pdf", height = 5, width = 5)
+boxplot(educ.years ~ province, data = afghan,
+        main = "Education by Province", ylab = "Years of education")
+dev.off()
 
 
 
