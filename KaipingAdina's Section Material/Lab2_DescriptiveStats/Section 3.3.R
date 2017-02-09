@@ -10,18 +10,17 @@
 ## load data (please set up your working directory)
 afghan <- read.csv("afghan.csv")
 
-## summarize variables of interest (ISAF = Inernational Scurity Assitance Force)
+## summarize variables of interest (ISAF = International Scurity Assitance Force)
 dim(afghan)
 head(afghan)
 
-## a vector of proportions to plot
-table(ISAF = afghan$violent.exp.ISAF)
-prop.table(table(ISAF = afghan$violent.exp.ISAF, 
-                 exclude = NULL)) ## This provides propotions rather than a count.  Exclude = NULL means to include missing data.
-ISAF.ptable <- prop.table(table(ISAF = afghan$violent.exp.ISAF, 
-                                exclude = NULL)) ## Now saving the proportion table as an object
-ISAF.ptable 
+# Cross - Tabulation Review
+table = table(ISAF = afghan$violent.exp.ISAF, Taliban = afghan$violent.exp.taliban)
+prop_Taliban_ISAF = prop.table(table) ## This provides propotions rather than a count.  Exclude = NULL means to include missing data.
 
+### Barplot: Summarize the distribution of a factor variable
+## a vector of proportions to plot
+ISAF.ptable <- prop.table(table(ISAF = afghan$violent.exp.ISAF, exclude = NULL))
 ## make barplots by specifying a certain range for y-axis
 barplot(ISAF.ptable) ## straight bar plot.  Below, can add names and axis limits:
 barplot(ISAF.ptable,
@@ -30,12 +29,13 @@ barplot(ISAF.ptable,
         xlab = "Response category", ##xaxis label
         ylab = "Proportion of the respondents", ylim = c(0, 0.7)) ##yaxis label and the scale of y axis
 
-### Section 3.3.2: Histogram
-##Create histogram for age.
+### Histogram: Summarize the distribution of a numeric variable
+#Create histogram for age.
 hist(afghan$age, freq = FALSE, ylim = c(0, 0.04), xlab = "Age", ## set frequence to FALSE or will give you frequency instead of density
      main = "Distribution of respondent's age")
+# note: Using density rather than frequency is useful for comparing two distributions especially when the number of observations is different
 
-## histogram of education.  use `breaks' to choose bins 
+# histogram of education.  use `breaks' to choose bins 
 summary(afghan$educ.years) ## get a sense of your data
 
 ## by creating our own bins, we can center the bars around the integers 1, 2, 3...
@@ -51,18 +51,15 @@ text(x = 3, y = 0.5, "median") ## Tell the graph where to add a text, and what t
 abline(v = median(afghan$educ.years))  #Tell the graph to add a vertical line (abline)
 
 ## A more general function to plot a line:
-lines(x = rep(median(afghan$educ.years), 2), y = c(0, 0.5))
+#lines(x = rep(median(afghan$educ.years), 2), y = c(0, 0.5))
 
-### Section 3.3.3: Box Plot
-## now we want to visualize the quartiles, identify outliers.
+### Box Plot: Identify Outliers or Doing Comparison
 ##Look at age distribution.
 boxplot(afghan$age, main = "Distribution of Age", ylab = "Age", ylim = c(10, 80))
 hist(afghan$age)
 
 ##usually want to use boxplot to compare distributinos, using the ~ symbol
 #Does education differ by province?
-## Look at education BY (~) province
-
 boxplot(educ.years ~ province, data = afghan, 
         main = "Education by province", ylab = "Years of education")
 
