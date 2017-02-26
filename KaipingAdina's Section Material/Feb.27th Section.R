@@ -24,6 +24,8 @@ cor(face$d.comp, face$diff.share) # Important function: cor(). You can use it in
 
 fit <- lm(diff.share ~ d.comp, data = face) # fit the model
 fit
+summary(fit)
+
 # Intepretaion of the coefficient: If the perceived competence score increases by 10 percentage points, the outcome varialbe is predicted to increase on average by 6.6 percetage points.
 # The above interpretation is important to remember because this is how you should write for your results if you use linear regression in your project
 
@@ -34,6 +36,11 @@ plot(face$d.comp, face$diff.share, xlim = c(0, 1.05), ylim = c(-1,1),
      main = "Facial competence and vote share")
 abline(fit) # add regression line
 
+
+#Today's Takeaway3: You can also perform linear regression with many IVs, therefore, you can control for confounding variables
+fit2 <- lm(diff.share ~ d.comp + w.party , data = face)
+fit2
+summary(fit2)
 
 # Adina, should I cover how to comupter ROot-Mean-Sauared Error, those things from text book page 157-160? Did Jen cover that in the lecture?
 
